@@ -18,7 +18,7 @@ export default function TransferOwnership() {
         setLoading(true);
         setMsg(null);
         try {
-            const res = await fetch(`/api/lands/${form.registration_id}/transfer`, {
+            const res = await fetch(`https://land-registry-api.onrender.com/api/lands/${form.registration_id}/transfer`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

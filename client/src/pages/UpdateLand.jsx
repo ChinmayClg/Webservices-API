@@ -31,7 +31,7 @@ export default function UpdateLand() {
         setMsg(null);
         setCurrentData(null);
         try {
-            const res = await fetch(`/api/lands/${regId}`);
+            const res = await fetch(`https://land-registry-api.onrender.com/api/lands/${regId}`);
             const json = await res.json();
             if (json.success) {
                 setCurrentData(json.data);
@@ -55,7 +55,7 @@ export default function UpdateLand() {
         setLoading(true);
         setMsg(null);
         try {
-            const res = await fetch(`/api/lands/${regId}`, {
+            const res = await fetch(`https://land-registry-api.onrender.com/api/lands/${regId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form),

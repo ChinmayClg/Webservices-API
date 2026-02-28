@@ -45,7 +45,7 @@ export default function SearchLands() {
             Object.entries(filters).forEach(([k, v]) => {
                 if (v) params.append(k, v);
             });
-            const res = await fetch(`/api/lands?${params}`);
+            const res = await fetch(`https://land-registry-api.onrender.com/api/lands?${params}`);
             const json = await res.json();
             setResults(json.data || []);
             setMessage(json.message);

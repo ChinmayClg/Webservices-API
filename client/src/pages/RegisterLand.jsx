@@ -30,7 +30,7 @@ export default function RegisterLand() {
         setLoading(true);
         setMsg(null);
         try {
-            const res = await fetch("/api/lands", {
+            const res = await fetch("https://land-registry-api.onrender.com/api/lands", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form),

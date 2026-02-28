@@ -40,7 +40,7 @@ export default function LandDetail() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`/api/lands/${id}`);
+                const res = await fetch(`https://land-registry-api.onrender.com/api/lands/${id}`);
                 const json = await res.json();
                 if (json.success) setLand(json.data);
                 else setError(json.error);
