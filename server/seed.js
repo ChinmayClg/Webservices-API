@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Land = require("./models/Land");
 const Transaction = require("./models/Transaction");
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/landregistry";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://chinmay:chinmay3006@cluster0.siz5zzc.mongodb.net/?appName=Cluster0";
 
 const lands = [
   {
