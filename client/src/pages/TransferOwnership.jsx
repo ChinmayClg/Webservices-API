@@ -6,6 +6,7 @@ export default function TransferOwnership() {
         new_owner_name: "",
         new_owner_contact: "",
         new_owner_aadhaar_last4: "",
+        auth_aadhaar_last4: "",
         reason: "",
     });
     const [msg, setMsg] = useState(null);
@@ -25,13 +26,14 @@ export default function TransferOwnership() {
                     new_owner_name: form.new_owner_name,
                     new_owner_contact: form.new_owner_contact,
                     new_owner_aadhaar_last4: form.new_owner_aadhaar_last4,
+                    auth_aadhaar_last4: form.auth_aadhaar_last4,
                     reason: form.reason,
                 }),
             });
             const json = await res.json();
             if (json.success) {
                 setMsg({ type: "success", text: `✅ Ownership transferred to ${json.data.new_owner}` });
-                setForm({ registration_id: "", new_owner_name: "", new_owner_contact: "", new_owner_aadhaar_last4: "", reason: "" });
+                setForm({ registration_id: "", new_owner_name: "", new_owner_contact: "", new_owner_aadhaar_last4: "", auth_aadhaar_last4: "", reason: "" });
             } else {
                 setMsg({ type: "error", text: `❌ ${json.error}` });
             }
@@ -101,6 +103,18 @@ export default function TransferOwnership() {
                             <option value="Court Order">Court Order</option>
                             <option value="Other">Other</option>
                         </select>
+                    </div>
+
+                    <div className="form-group" style={{ gridColumn: "1 / -1", borderTop: "1px solid var(--border)", paddingTop: "1rem", marginTop: "0.5rem" }}>
+                        <label>Authorization: Current Owner Aadhaar (Last 4) <span style={{ color: "var(--red)" }}>*</span></label>
+                        <input
+                            type="text"
+                            placeholder="e.g. 5928"
+                            value={form.auth_aadhaar_last4}
+                            onChange={(e) => set("auth_aadhaar_last4", e.target.value)}
+                            required
+                        />
+                        <small style={{ color: "var(--text-muted)" }}>Required to verify you are authorized to transfer this land.</small>
                     </div>
                 </div>
 

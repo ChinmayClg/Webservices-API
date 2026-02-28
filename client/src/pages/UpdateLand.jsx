@@ -136,6 +136,18 @@ export default function UpdateLand() {
                                 )}
                             </div>
                         ))}
+
+                        <div className="form-group" style={{ gridColumn: "1 / -1", borderTop: "1px solid var(--border)", paddingTop: "1rem", marginTop: "0.5rem" }}>
+                            <label>Authorization: Owner Aadhaar (Last 4) <span style={{ color: "var(--red)" }}>*</span></label>
+                            <input
+                                type="text"
+                                placeholder="e.g. 5928"
+                                value={form.auth_aadhaar_last4 || ""}
+                                onChange={(e) => set("auth_aadhaar_last4", e.target.value)}
+                                required
+                            />
+                            <small style={{ color: "var(--text-muted)" }}>Required to verify you are authorized to update this land.</small>
+                        </div>
                     </div>
 
                     <div className="btn-row">

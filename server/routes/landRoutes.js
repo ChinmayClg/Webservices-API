@@ -148,6 +148,10 @@ router.put("/:id/transfer", async (req, res) => {
         if (!land)
             return res.status(404).json({ success: false, error: "Land not found." });
 
+        if (!req.body.auth_aadhaar_last4 || req.body.auth_aadhaar_last4 !== land.owner_aadhaar_last4) {
+            return res.status(401).json({ success: false, error: "Verification failed: Incorrect Current Owner Aadhaar (Last 4 digits)." });
+        }
+
         const previousOwner = land.owner_name;
 
         // Update owner in lands collection
@@ -197,14 +201,16 @@ router.patch("/:id", async (req, res) => {
         if (updatedFields.length === 0)
             return res.status(400).json({ success: false, error: "No valid fields to update." });
 
-        const land = await Land.findOneAndUpdate(
-            { registration_id: req.params.id },
-            { $set: updates },
-            { new: true }
-        );
-
+        const land = await Land.findOne({ registration_id: req.params.id });
         if (!land)
             return res.status(404).json({ success: false, error: "Land not found." });
+
+        if (!req.body.auth_aadhaar_last4 || req.body.auth_aadhaar_last4 !== land.owner_aadhaar_last4) {
+            return res.status(401).json({ success: false, error: "Verification failed: Incorrect Owner Aadhaar (Last 4 digits)." });
+        }
+
+        Object.assign(land, updates);
+        await land.save();
 
         res.json({
             success: true,
