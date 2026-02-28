@@ -3,31 +3,30 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const landRoutes = require("./routes/landRoutes");
 
-const PORT = 5000;
-const MONGO_URI = "mongodb://localhost:27017/landregistry";
-
 const app = express();
 
-// ── Middleware ─────────────────────────────────────────────
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ── Routes ────────────────────────────────────────────────
+// Routes
 app.use("/api/lands", landRoutes);
 
-// ── Health check ──────────────────────────────────────────
+// Health check
 app.get("/", (_req, res) => {
     res.json({ status: "Land Registry API is running", version: "1.0.0" });
 });
 
-// ── Start ─────────────────────────────────────────────────
+// Start server
 mongoose
     .connect(MONGO_URI)
     .then(() => {
         console.log("Connected to MongoDB");
         app.listen(PORT, () => {
-            console.log(`Server running at http://localhost:${PORT}`);
-            console.log(`API base:  http://localhost:${PORT}/api/lands`);
+            console.log(`Server running on port ${PORT}`);
         });
     })
     .catch((err) => {
